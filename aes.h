@@ -10,7 +10,7 @@ typedef enum {
 
 #ifdef _MSC_VER
     #if _MSC_VER >= 1600
-        #include <cstdint>
+        #include <stdint.h>
     #else
         typedef __int8              int8_t;
         typedef __int16             int16_t;
@@ -22,13 +22,15 @@ typedef enum {
         typedef unsigned __int64    uint64_t;
     #endif
 #elif __GNUC__ >= 3
-    #include <cstdint>
+    #include <stdint.h>
 #endif
-
+int aes_encrypt(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key);
+int aes_decrypt(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key);
 int aes_encrypt_ecb(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key);
 int aes_decrypt_ecb(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key);
 int aes_encrypt_cbc(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key, uint8_t *iv);
 int aes_decrypt_cbc(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key, uint8_t *iv);
+void aes_dump(char *msg, uint8_t *data, int len);
 
 #ifdef __cplusplus
 };
