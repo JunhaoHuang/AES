@@ -79,7 +79,7 @@ void aes_cypher_256_test()
 int main()
 {
 	aes_cypher_128_test();
-	aes_cypher_192_test();
-	aes_cypher_256_test();
+	// aes_cypher_192_test();
+	// aes_cypher_256_test();
 	return 0;
 }

@@ -24,6 +24,10 @@ typedef enum {
 #elif __GNUC__ >= 3
     #include <stdint.h>
 #endif
+#define GMULT_TABLE // comment it if GMULT_TABLE is disable
+#ifdef GMULT_TABLE
+#define gmult(a,b) gmult_aes[256*a + b]
+#endif
 int aes_encrypt(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key);
 int aes_decrypt(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key);
 int aes_encrypt_ecb(AES_CYPHER_T mode, uint8_t *data, int len, uint8_t *key);
