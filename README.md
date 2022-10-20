@@ -870,3 +870,22 @@ DPA利用不同数据对应的条件功耗分布的差异进行统计分析以�
 1. https://github.com/matt-wu/AES/
 
 <最早的手工计算AES-128的想法来源于2016年底读过的一本书《How Software Works: The Magic Behind Encryption ...》，在阅读过程中发现AES一节中的数据全对不上，然后于17年初开始翻阅AES及Rijndael算法标准等资料，等看完所有文档后才发现此书对AES的介绍真是简化得没边了，后来又做了大量的延伸阅读，春节期间根据FIPS 197及《The Design of Rijndael》实现了AES 128/192/256 ECB/CBC的计算过程，之后开始本blog的书写，中间断断续续直至今日才完工，本文估计用时约40小时。学习从来不是容易的事！但越是不容易的事情做起来才更有乐趣！>
+
+
+# Environment Setup
+This project requires the following software:
+- gcc
+- make
+
+# Usage
+To compile the code, simply use:
+```
+make all
+```
+
+To run the speed/test code:
+```
+bin/speed
+bin/test
+```
+**Note: Do not modify the CFLAGS! Use O0 as the benchmark flags!**

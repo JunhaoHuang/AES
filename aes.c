@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <memory.h>
 #include "aes.h"
-#include "gmult.h"
 //
 // Public Definitions
 //
@@ -216,50 +215,6 @@ void aes_shift_rows(AES_CYPHER_T mode, uint8_t *state)
 
 
 
-#ifdef GMULT_TABLE
-void aes_mul(uint8_t *a, uint8_t *b, uint8_t *d) {
-
-	d[0] = gmult(a[0],b[0])^gmult(a[3],b[1])^gmult(a[2],b[2])^gmult(a[1],b[3]);
-	d[1] = gmult(a[1],b[0])^gmult(a[0],b[1])^gmult(a[3],b[2])^gmult(a[2],b[3]);
-	d[2] = gmult(a[2],b[0])^gmult(a[1],b[1])^gmult(a[0],b[2])^gmult(a[3],b[3]);
-	d[3] = gmult(a[3],b[0])^gmult(a[2],b[1])^gmult(a[1],b[2])^gmult(a[0],b[3]);
-}
-
-void aes_mix_columns(AES_CYPHER_T mode, uint8_t *state)
-{
-    uint8_t a[] = {0x02, 0x01, 0x01, 0x03};
-    uint8_t s[4],col[4];
-    int i, j;
-   
-    for (j = 0; j < g_aes_nb[mode]; j++) {
-        for (i = 0; i < 4; i++) {
-            col[i]=state[j*4+i];
-        }
-        aes_mul(a,col,s);
-        for (i = 0; i < 4; i++) {
-            state[j * 4 + i] = s[i];
-        }
-    }
-}
-
-void inv_mix_columns(AES_CYPHER_T mode, uint8_t *state)
-{
-    uint8_t a[] = {0x0e, 0x09, 0x0d, 0x0b}; // a(x) = {0e} + {09}x + {0d}x2 + {0b}x3
-    uint8_t s[4],col[4];
-    int i, j, r;
-   
-    for (j = 0; j < g_aes_nb[mode]; j++) {
-        for (i = 0; i < 4; i++) {
-            col[i]=state[j*4+i];
-        }
-        aes_mul(a,col,s);
-        for (i = 0; i < 4; i++) {
-            state[j * 4 + i] = s[i];
-        }
-    }
-
-}
-#else
 uint8_t aes_xtime(uint8_t x)
 {
     return ((x << 1) ^ (((x >> 7) & 1) * 0x1b));
@@ -328,12 +283,6 @@ void inv_mix_columns(AES_CYPHER_T mode, uint8_t *state)
         }
     }
 }
-
-#endif
-
-
-
-
 
 void aes_dump(char *msg, uint8_t *data, int len)
 {
