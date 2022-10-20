@@ -25,23 +25,25 @@ int main(){
 	aes_encrypt_ecb(AES_CYPHER_128, data, sizeof(data), key);
 	end=clock();
 	printf("aes_encrypt_ecb_128 %ld bytes time(s): %lf\n", sizeof(data), (double)(end - start) / CLOCKS_PER_SEC);
-	aes_dump("cipher", data, 16);
+	aes_dump("cipher", data, 32);
 
 	start = clock();
 	aes_decrypt_ecb(AES_CYPHER_128, data, sizeof(data), key);
 	end = clock();
 	printf("aes_decrypt_ecb_128 %ld bytes time(s): %lf\n", sizeof(data), (double)(end - start) / CLOCKS_PER_SEC);
+	aes_dump("plain", data, 32);
 
 	start = clock();
 	aes_encrypt_cbc(AES_CYPHER_128, data, sizeof(data), key, iv);
 	end = clock();
 	printf("aes_encrypt_cbc_128 %ld bytes time(s): %lf\n", sizeof(data), (double)(end - start) / CLOCKS_PER_SEC);
-	aes_dump("cipher", data, 16);
+	aes_dump("cipher", data, 32);
 
 	start = clock();
 	aes_decrypt_cbc(AES_CYPHER_128, data, sizeof(data), key, iv);
 	end = clock();
 	printf("aes_decrypt_cbc_128 %ld bytes time(s): %lf\n", sizeof(data), (double)(end - start) / CLOCKS_PER_SEC);
+	aes_dump("plain", data, 32);
 
 	return 0;
 }

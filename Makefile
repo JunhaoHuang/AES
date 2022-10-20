@@ -1,7 +1,10 @@
+CFLAGS+=-O0	$(FLAG1) $(FLAG2)
 all: test speed
 test:
-	gcc aes.c gmult.c test.c -O3 -o test
+	mkdir -p bin
+	gcc aes.c gmult.c test.c $(CFLAGS) -o bin/test
 speed:
-	gcc aes.c gmult.c speed.c -O3 -o speed
+	mkdir -p bin
+	gcc aes.c gmult.c speed.c $(CFLAGS) -o bin/speed
 clean:
-	rm ./speed ./test
+	rm -rf bin/
